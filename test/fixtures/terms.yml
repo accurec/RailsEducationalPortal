@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+term_one:
+  name: Test Term One
+  school: school_one
+
+term_two:
+  name: Test Term Two
+  school: school_two

@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+course_one:
+  name: Test Course One
+  term: term_one
+
+course_two:
+  name: Test Course Two
+  term: term_two
