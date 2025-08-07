@@ -3,5 +3,7 @@ class Student::DashboardController < ApplicationController
 
   def index
     authorize :dashboard, :show_student?
+
+    @student = User.find_by(email: current_user.email)
   end
 end
