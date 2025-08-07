@@ -27,5 +27,11 @@
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>    
+    <% if user_signed_in? %>
+      Logged in as <%= current_user.email %> |
+      <%= button_to "Logout", destroy_user_session_path, method: :delete, form: { style: 'display: inline;' } %>
+    <% else %>
+      <%= link_to "Login", new_user_session_path %>
+    <% end %>
   </body>
 </html>
