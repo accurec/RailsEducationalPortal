@@ -1,0 +1,9 @@
+<h1>Available Courses to Purchase</h1>
+
+<% @courses.each do |course| %>
+  <div>
+    <span><%= course.name %> | </span>
+    <%= button_to "Purchase with credit card", destroy_user_session_path, method: :post, form: { style: 'display: inline;' } %>
+  </div>
+  <p></p>
+<% end %>

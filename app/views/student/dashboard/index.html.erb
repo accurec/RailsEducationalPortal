@@ -1,5 +1,8 @@
 <h1>Student Dashboard</h1>
 
+<p><%= link_to "List of available Courses to purchase", student_courses_to_purchase_path %></p>
+<%= link_to "List of available Terms to purchase", student_terms_to_purchase_path %>
+
 <h3>My school:</h3>
 <p><%= @student.school.name %></p>
 

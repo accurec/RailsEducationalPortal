@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   namespace :student do
+    get "courses_to_purchase", to: "courses_to_purchase#index"
+    get "terms_to_purchase", to: "terms_to_purchase#index"
     get "dashboard", to: "dashboard#index"
   end
 
