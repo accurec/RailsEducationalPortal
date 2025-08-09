@@ -1,9 +1,13 @@
 # Seed file for Schools
 puts "Seeding schools..."
 
-school_harvard = School.find_or_create_by!(name: "Harvard University")
-school_moscow = School.find_or_create_by!(name: "Moscow University")
+schools = []
 
-puts "Schools created: #{school_harvard.name}, #{school_moscow.name}"
+["Harvard University", "Moscow University"].each do |school|
+  School.find_or_create_by!(name: school)
+  schools << school
+end
+
+puts "Schools created: #{schools.join(", ")}"
 
 puts "Schools seeding completed!" 
