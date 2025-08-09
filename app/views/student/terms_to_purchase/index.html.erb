@@ -2,7 +2,7 @@
 
 <% @terms.each do |term| %>
   <div style="margin-bottom: 25px; border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
-    <strong><%= term.name %></strong>
+    <h3><%= term.name %></h3>
     
     <% if term.courses.any? %>
       <h4>Courses in this term:</h4>
