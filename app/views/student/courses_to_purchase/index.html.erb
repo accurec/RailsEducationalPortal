@@ -3,7 +3,7 @@
 <% @courses.each do |course| %>
   <div>
     <span><%= course.name %> | </span>
-    <%= button_to "Purchase with credit card", destroy_user_session_path, method: :post, form: { style: 'display: inline;' } %>
+    <%= button_to "Purchase with credit card", student_purchase_course_path(course), method: :post, form: { style: 'display: inline;' } %>
   </div>
   <p></p>
 <% end %>

@@ -4,6 +4,38 @@ class Student::CoursesToPurchaseController < ApplicationController
   def index
     authorize :dashboard, :show_student?
 
-    @courses = current_user.school.terms.map(&:courses).flatten
+    @courses = Course.joins(term: :school)
+                     .where(schools: { id: current_user.school_id })
+                     .where.not(id: current_user.courses.select(:id))
+  end
+
+  def purchase
+    authorize :dashboard, :show_student?
+    
+    @course = Course.find(params[:id])
+    
+    if current_user.courses.include?(@course)
+      flash[:alert] = "You have already purchased this course."
+      redirect_to student_courses_to_purchase_path
+      return
+    end
+
+    payment_processor = ::PaymentProcessor.new(current_user)
+    payment_result = payment_processor.process_payment(@course)
+    
+    if payment_result[:success]
+      enrollment = current_user.enrollments.build(course: @course, purchased_at: Time.current)
+      
+      if enrollment.save
+        flash[:notice] = "Successfully purchased #{@course.name} for $#{payment_result[:amount]}!"
+        redirect_to student_courses_to_purchase_path
+      else
+        flash[:alert] = "Failed to enroll in course. Please try again."
+        redirect_to student_courses_to_purchase_path
+      end
+    else
+      flash[:alert] = "Payment failed: #{payment_result[:error]}"
+      redirect_to student_courses_to_purchase_path
+    end
   end
 end

@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   namespace :student do
-    get "courses_to_purchase", to: "courses_to_purchase#index"
-    get "terms_to_purchase", to: "terms_to_purchase#index"
     get "dashboard", to: "dashboard#index"
+    post "dashboard/:id/enroll_in_course", to: "dashboard#enroll_in_course", as: :enroll_in_course
+    get "courses_to_purchase", to: "courses_to_purchase#index"
+    post "courses_to_purchase/:id/purchase", to: "courses_to_purchase#purchase", as: :purchase_course
+    get "terms_to_purchase", to: "terms_to_purchase#index"
   end
 
   namespace :admin do
