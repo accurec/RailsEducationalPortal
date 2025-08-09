@@ -4,6 +4,6 @@ class Student::TermsToPurchaseController < ApplicationController
   def index
     authorize :dashboard, :show_student?
 
-    @terms = current_user.school.terms
+    @terms = current_user.school.terms.includes(:courses)
   end
 end

@@ -21,7 +21,7 @@ class Student::CoursesToPurchaseController < ApplicationController
     end
 
     payment_processor = ::PaymentProcessor.new(current_user)
-    payment_result = payment_processor.process_payment(@course)
+    payment_result = payment_processor.process_course_payment(@course)
     
     if payment_result[:success]
       enrollment = current_user.enrollments.build(course: @course, purchased_at: Time.current)

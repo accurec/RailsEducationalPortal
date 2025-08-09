@@ -8,12 +8,12 @@ class PaymentProcessor
   end
 
   # Mock successful payment processing
-  def process_payment(course)
-    # Simulate payment processing delay
-    sleep(0.1) if Rails.env.development?
-    
-    # Simulate successful payment processing
-    success_response(course)
+  def process_course_payment(course)
+    success_response_course_payment(course)
+  end
+
+  def process_term_payment(term)
+    success_response_term_payment(term)
   end
 
   private
@@ -26,7 +26,7 @@ class PaymentProcessor
     rand(10.0..100.0).round(2)
   end
 
-  def success_response(course)
+  def success_response_course_payment(course)
     {
       success: true,
       transaction_id: generate_transaction_id,
@@ -40,12 +40,17 @@ class PaymentProcessor
     }
   end
 
-  def failure_response(message)
+  def success_response_term_payment(term)
     {
-      success: false,
-      error: message,
+      success: true,
+      transaction_id: generate_transaction_id,
+      amount: price,
+      currency: currency,
       processed_at: Time.current,
-      user_id: user.id
+      user_id: user.id,
+      term_id: term.id,
+      payment_method: 'credit_card',
+      status: 'completed'
     }
   end
 end

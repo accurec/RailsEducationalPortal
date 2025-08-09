@@ -1,10 +1,23 @@
 <h1>Available Terms to Purchase</h1>
 
 <% @terms.each do |term| %>
+  <div style="margin-bottom: 25px; border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
+    <strong><%= term.name %></strong>
+    
+    <% if term.courses.any? %>
+      <h4>Courses in this term:</h4>
+      <ul style="margin-bottom: 15px;">
+        <% term.courses.each do |course| %>
+          <li><%= course.name %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p><em>No courses available for this term.</em></p>
+    <% end %>
+    
     <div>
-        <span><%= term.name %> | </span>
-        <%= button_to "Purchase with credit card", destroy_user_session_path, method: :post, form: { style: 'display: inline;' } %> 
-        <%= button_to "Purchase with license code", destroy_user_session_path, method: :post, form: { style: 'display: inline;' } %>
+      <%= button_to "Purchase with credit card", destroy_user_session_path, method: :post, form: { style: 'display: inline; margin-right: 10px;' } %> 
+      <%= button_to "Purchase with license code", destroy_user_session_path, method: :post, form: { style: 'display: inline;' } %>
     </div>
-    <p></p>
+  </div>
 <% end %>

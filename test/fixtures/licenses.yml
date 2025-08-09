@@ -1,7 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 license_one:
-  code: MyString
+  code: Test License Code 1
+  is_used: false
 
 license_two:
-  code: MyString
+  code: Test License Code 2
+  is_used: false
+
+license_three:
+  code: Test License Code 3
+  is_used: false
