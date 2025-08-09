@@ -25,6 +25,10 @@
   <body>
     <%= yield %>
 
+    <button onclick="history.back()">
+      ← Back
+    </button>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>    
     <% if user_signed_in? %>
