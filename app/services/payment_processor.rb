@@ -8,12 +8,12 @@ class PaymentProcessor
   end
 
   # Mock successful payment processing
-  def process_course_payment(course)
-    success_response_course_payment(course)
+  def process_course_payment(course, license = nil)
+    success_response_course_payment(course, license)
   end
 
-  def process_term_payment(term)
-    success_response_term_payment(term)
+  def process_term_payment(term, license = nil)
+    success_response_term_payment(term, license)
   end
 
   private
@@ -26,7 +26,7 @@ class PaymentProcessor
     rand(10.0..100.0).round(2)
   end
 
-  def success_response_course_payment(course)
+  def success_response_course_payment(course, license = nil)
     {
       success: true,
       transaction_id: generate_transaction_id,
@@ -35,12 +35,12 @@ class PaymentProcessor
       processed_at: Time.current,
       user_id: user.id,
       course_id: course.id,
-      payment_method: 'credit_card',
+      payment_method: license ? 'license_code' : 'credit_card',
       status: 'completed'
     }
   end
 
-  def success_response_term_payment(term)
+  def success_response_term_payment(term, license = nil)
     {
       success: true,
       transaction_id: generate_transaction_id,
@@ -49,7 +49,7 @@ class PaymentProcessor
       processed_at: Time.current,
       user_id: user.id,
       term_id: term.id,
-      payment_method: 'credit_card',
+      payment_method: license ? 'license_code' : 'credit_card',
       status: 'completed'
     }
   end

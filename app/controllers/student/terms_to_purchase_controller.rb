@@ -70,7 +70,7 @@ class Student::TermsToPurchaseController < ApplicationController
     end
 
     payment_processor = ::PaymentProcessor.new(current_user)
-    payment_result = payment_processor.process_term_payment(term)
+    payment_result = payment_processor.process_term_payment(term, license)
 
     purchase_result = process_term_purchase(term, current_user, payment_result, license)
 
