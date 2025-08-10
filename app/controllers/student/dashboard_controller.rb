@@ -1,4 +1,6 @@
 class Student::DashboardController < ApplicationController
+  include Student::DashboardHelper
+
   before_action :authenticate_user!
 
   def index
@@ -16,18 +18,14 @@ class Student::DashboardController < ApplicationController
     authorize :dashboard, :show_student?
 
     course = Course.find(params[:id])
-    existing_enrollment = current_user.enrollments.find_by(course: course)
+    enrollment_result = process_course_enrollment(course, current_user)
     
-    if existing_enrollment
-      flash[:alert] = "You are already enrolled in #{course.name}!"
+    if enrollment_result[:already_enrolled]
+      flash[:alert] = enrollment_result[:error]
+    elsif enrollment_result[:success]
+      flash[:notice] = enrollment_result[:message]
     else
-      enrollment = Enrollment.new(course: course, user: current_user, enrolled_at: Time.current)
-      
-      if enrollment.save
-        flash[:notice] = "Successfully enrolled in #{course.name}!"
-      else
-        flash[:alert] = "Failed to enroll in #{course.name}. Please try again."
-      end
+      flash[:alert] = enrollment_result[:error]
     end
 
     redirect_to student_dashboard_path
