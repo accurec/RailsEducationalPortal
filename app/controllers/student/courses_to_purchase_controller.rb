@@ -14,36 +14,19 @@ class Student::CoursesToPurchaseController < ApplicationController
     
     course = Course.find(params[:id])
     
-    if current_user.purchased_courses.include?(course)
-      flash[:alert] = "You have already purchased this course."
-      redirect_to student_courses_to_purchase_path
-      return
-    end
-
     payment_processor = ::PaymentProcessor.new(current_user)
     payment_result = payment_processor.process_course_payment(course)
-    payment_method = case payment_result[:payment_method]
-                     when 'credit_card'
-                       CoursePurchase.payment_methods[:credit_card]
-                     when 'license_code'
-                       CoursePurchase.payment_methods[:license_code]
-                     else
-                       CoursePurchase.payment_methods[:other]
-                     end
-
-    if payment_result[:success]
-      course_purchase = current_user.course_purchases.build(course: course, purchased_at: Time.current, payment_method: payment_method)
-      
-      if course_purchase.save
-        flash[:notice] = "Successfully purchased #{course.name} for $#{payment_result[:amount]}!"
-        redirect_to student_courses_to_purchase_path
-      else
-        flash[:alert] = "Failed to enroll in course. Please try again."
-        redirect_to student_courses_to_purchase_path
-      end
+    
+    purchase_result = process_course_purchase(course, current_user, payment_result)
+    
+    if purchase_result[:already_purchased]
+      flash[:alert] = purchase_result[:error]
+    elsif purchase_result[:success]
+      flash[:notice] = "Successfully purchased #{course.name} for $#{purchase_result[:amount]}!"
     else
-      flash[:alert] = "Payment failed: #{payment_result[:error]}"
-      redirect_to student_courses_to_purchase_path
+      flash[:alert] = purchase_result[:error]
     end
+    
+    redirect_to student_courses_to_purchase_path
   end
 end

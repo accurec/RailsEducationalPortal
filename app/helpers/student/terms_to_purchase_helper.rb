@@ -1,13 +1,6 @@
 module Student::TermsToPurchaseHelper
   def process_term_purchase(term, user, payment_result)
-    payment_method = case payment_result[:payment_method]
-                      when 'credit_card'
-                        TermPurchase.payment_methods[:credit_card]
-                      when 'license_code'
-                        TermPurchase.payment_methods[:license_code]
-                      else
-                        TermPurchase.payment_methods[:other]
-                      end
+    payment_method = determine_payment_method(payment_result[:payment_method])
     
     ActiveRecord::Base.transaction do
       term_purchase = create_term_purchase(term, user, payment_method)
@@ -50,5 +43,16 @@ module Student::TermsToPurchaseHelper
     end
     
     unpurchased_courses_count
+  end
+
+  def determine_payment_method(payment_method_string)
+    case payment_method_string
+    when 'credit_card'
+      TermPurchase.payment_methods[:credit_card]
+    when 'license_code'
+      TermPurchase.payment_methods[:license_code]
+    else
+      TermPurchase.payment_methods[:other]
+    end
   end
 end
