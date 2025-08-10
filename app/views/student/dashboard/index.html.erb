@@ -12,17 +12,17 @@
 </div>
 
 <div style="margin-bottom: 25px; border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
-    <h3>My Purchased Courses (<%= @student.purchased_enrollments.count %>):</h3>
-    <% if @student.purchased_enrollments.any? %>
-    <% @student.purchased_enrollments.order(:purchased_at).each do |enrollment| %>
-        <strong><%= enrollment.course.name %></strong>
-        <% if enrollment.enrolled_at.nil? %>
-            | <%= button_to "Enroll in course", student_enroll_in_course_path(enrollment.id), method: :post, form: { style: 'display: inline;' } %>
-        <% end %>
+    <h3>My Purchased Courses (<%= @student.course_purchases.count %>):</h3>
+    <% if @student.course_purchases.any? %>
+    <% @student.course_purchases.order(:purchased_at).each do |course_purchase| %>
+        <strong><%= course_purchase.course.name %></strong>
+        <% if @student.enrollments.where(course: course_purchase.course).empty? %>
+            | <%= button_to "Enroll in course", student_enroll_in_course_path(course_purchase.course.id), method: :post, form: { style: 'display: inline;' } %>
+        <% end %>   
         <br>
         <small>
-            Term: <%= enrollment.course.term.name %> | 
-            Purchased: <%= enrollment.purchased_at.strftime("%B %d, %Y") %>
+            Term: <%= course_purchase.course.term.name %> | 
+            Purchased: <%= course_purchase.purchased_at.strftime("%B %d, %Y") %>
         </small>
         <div style="margin-bottom: 15px;"></div>
     <% end %>
@@ -32,9 +32,9 @@
 </div>
 
 <div style="margin-bottom: 25px; border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
-    <h3>My Enrolled Courses (<%= @student.enrolled_enrollments.count %>):</h3>
-    <% if @student.enrolled_enrollments.any? %>
-    <% @student.enrolled_enrollments.order(:enrolled_at).each do |enrollment| %>
+    <h3>My Enrolled Courses (<%= @student.enrollments.count %>):</h3>
+    <% if @student.enrollments.any? %>
+    <% @student.enrollments.order(:enrolled_at).each do |enrollment| %>
         <strong><%= enrollment.course.name %></strong>
         <br>
         <small>

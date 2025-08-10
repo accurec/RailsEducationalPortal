@@ -15,12 +15,19 @@ class Student::DashboardController < ApplicationController
   def enroll_in_course
     authorize :dashboard, :show_student?
 
-    enrollment = Enrollment.find(params[:id])
-
-    if enrollment.update(enrolled_at: Time.current)
-      flash[:notice] = "Successfully enrolled in #{enrollment.course.name}!"
+    course = Course.find(params[:id])
+    existing_enrollment = current_user.enrollments.find_by(course: course)
+    
+    if existing_enrollment
+      flash[:alert] = "You are already enrolled in #{course.name}!"
     else
-      flash[:alert] = "Failed to enroll in #{enrollment.course.name}. Please try again."
+      enrollment = Enrollment.new(course: course, user: current_user, enrolled_at: Time.current)
+      
+      if enrollment.save
+        flash[:notice] = "Successfully enrolled in #{course.name}!"
+      else
+        flash[:alert] = "Failed to enroll in #{course.name}. Please try again."
+      end
     end
 
     redirect_to student_dashboard_path

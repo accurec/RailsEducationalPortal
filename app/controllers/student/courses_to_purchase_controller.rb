@@ -6,7 +6,7 @@ class Student::CoursesToPurchaseController < ApplicationController
 
     @courses = Course.joins(term: :school)
                      .where(schools: { id: current_user.school_id })
-                     .where.not(id: current_user.courses.select(:id))
+                     .where.not(id: current_user.purchased_courses.select(:id))
   end
 
   def purchase
@@ -14,7 +14,7 @@ class Student::CoursesToPurchaseController < ApplicationController
     
     @course = Course.find(params[:id])
     
-    if current_user.courses.include?(@course)
+    if current_user.purchased_courses.include?(@course)
       flash[:alert] = "You have already purchased this course."
       redirect_to student_courses_to_purchase_path
       return
@@ -24,9 +24,9 @@ class Student::CoursesToPurchaseController < ApplicationController
     payment_result = payment_processor.process_course_payment(@course)
     
     if payment_result[:success]
-      enrollment = current_user.enrollments.build(course: @course, purchased_at: Time.current)
+      course_purchase = current_user.course_purchases.build(course: @course, purchased_at: Time.current, payment_method: 0)
       
-      if enrollment.save
+      if course_purchase.save
         flash[:notice] = "Successfully purchased #{@course.name} for $#{payment_result[:amount]}!"
         redirect_to student_courses_to_purchase_path
       else
