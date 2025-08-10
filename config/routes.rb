@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     get "courses_to_purchase", to: "courses_to_purchase#index"
     post "courses_to_purchase/:id/purchase", to: "courses_to_purchase#purchase", as: :purchase_course
     get "terms_to_purchase", to: "terms_to_purchase#index"
-    post "terms_to_purchase/:id/purchase", to: "terms_to_purchase#purchase", as: :purchase_term
+    post "terms_to_purchase/:id/purchase_with_credit_card", to: "terms_to_purchase#purchase_with_credit_card", as: :purchase_term_with_credit_card
+    post "terms_to_purchase/:id/purchase_with_license_code", to: "terms_to_purchase#purchase_with_license_code", as: :purchase_term_with_license_code
   end
 
   namespace :admin do

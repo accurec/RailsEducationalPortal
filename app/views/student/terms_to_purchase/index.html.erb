@@ -11,8 +11,12 @@
         <li><%= course.name %></li>
       <% end %>
     </ul>
-    <%= button_to "Purchase with credit card", student_purchase_term_path(term), method: :post, form: { style: 'display: inline;' } %>
-    <%= button_to "Purchase with license code", student_purchase_term_path(term), method: :post, form: { style: 'display: inline;' } %>
+    <%= button_to "Purchase with credit card", student_purchase_term_with_credit_card_path(term), method: :post, form: { style: 'display: inline;' } %>
+    <%= form_with url: student_purchase_term_with_license_code_path(term), method: :post, local: true, style: "display: inline;" do |form| %>
+      <%= form.hidden_field :term_id, value: term.id %>
+      <%= form.text_field :license_code, placeholder: "Enter license code", style: "margin-right: 10px; margin-top: 15px; padding: 5px; border: 1px solid #ccc; border-radius: 3px;" %>
+      <%= form.submit "Purchase with license code", style: "display: inline;" %>
+    <% end %>
   </div>
   <% end %>
 <% else %>

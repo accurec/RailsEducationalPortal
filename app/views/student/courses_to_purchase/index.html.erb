@@ -3,7 +3,7 @@
 <div style="margin-bottom: 25px; border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
     <% if @courses.any? %>
         <% @courses.each do |course| %>
-        <div>
+        <div style="margin-bottom: 15px;">
             <span><%= course.name %> (<%= course.term.name %>) | </span>
             <%= button_to "Purchase with credit card", student_purchase_course_path(course), method: :post, form: { style: 'display: inline;' } %>
         </div>
