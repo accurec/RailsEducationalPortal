@@ -11,13 +11,10 @@
           <li><%= course.name %></li>
         <% end %>
       </ul>
+      <%= button_to "Purchase with credit card", student_purchase_term_path(term), method: :post, form: { style: 'display: inline;' } %>
+      <%= button_to "Purchase with license code", student_purchase_term_path(term), method: :post, form: { style: 'display: inline;' } %>
     <% else %>
       <p><em>No courses available for this term.</em></p>
     <% end %>
-    
-    <div>
-      <%= button_to "Purchase with credit card", destroy_user_session_path, method: :post, form: { style: 'display: inline; margin-right: 10px;' } %> 
-      <%= button_to "Purchase with license code", destroy_user_session_path, method: :post, form: { style: 'display: inline;' } %>
-    </div>
   </div>
 <% end %>

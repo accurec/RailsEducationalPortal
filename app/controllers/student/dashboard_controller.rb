@@ -7,7 +7,7 @@ class Student::DashboardController < ApplicationController
     @student = User.includes(
       :school,
       enrollments: {
-        course: :term
+        course: { term: :school }
       }
     ).find(current_user.id)
   end

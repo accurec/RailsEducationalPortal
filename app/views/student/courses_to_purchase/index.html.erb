@@ -1,11 +1,14 @@
 <h1>Available Courses to Purchase</h1>
 
 <div style="margin-bottom: 25px; border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
-    <% @courses.each do |course| %>
-    <div>
-        <span><%= course.name %> (<%= course.term.name %>) | </span>
-        <%= button_to "Purchase with credit card", student_purchase_course_path(course), method: :post, form: { style: 'display: inline;' } %>
-    </div>
-    <p></p>
+    <% if @courses.any? %>
+        <% @courses.each do |course| %>
+        <div>
+            <span><%= course.name %> (<%= course.term.name %>) | </span>
+            <%= button_to "Purchase with credit card", student_purchase_course_path(course), method: :post, form: { style: 'display: inline;' } %>
+        </div>
+        <% end %>
+    <% else %>
+        <p><em>No courses available to purchase.</em></p>
     <% end %>
 </div>
