@@ -1,4 +1,6 @@
 class Student::CoursesToPurchaseController < ApplicationController
+  include Student::CoursesToPurchaseHelper
+
   before_action :authenticate_user!
 
   def index
