@@ -7,8 +7,10 @@ class Student::TermsToPurchaseController < ApplicationController
     authorize :dashboard, :show_student?
 
     @terms = Term.joins(:school)
+                 .joins(:courses)
                  .where(schools: { id: current_user.school_id })
                  .where.not(id: current_user.purchased_terms.select(:id))
+                 .distinct   
   end
 
   def purchase

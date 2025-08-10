@@ -1,20 +1,22 @@
 <h1>Available Terms to Purchase</h1>
 
+<% if @terms.any? %>
 <% @terms.each do |term| %>
   <div style="margin-bottom: 25px; border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
     <h3><%= term.name %></h3>
     
-    <% if term.courses.any? %>
-      <h4>Courses in this term:</h4>
-      <ul style="margin-bottom: 15px;">
-        <% term.courses.each do |course| %>
-          <li><%= course.name %></li>
-        <% end %>
-      </ul>
-      <%= button_to "Purchase with credit card", student_purchase_term_path(term), method: :post, form: { style: 'display: inline;' } %>
-      <%= button_to "Purchase with license code", student_purchase_term_path(term), method: :post, form: { style: 'display: inline;' } %>
-    <% else %>
-      <p><em>No courses available for this term.</em></p>
-    <% end %>
+    <h4>Courses in this term:</h4>
+    <ul style="margin-bottom: 15px;">
+      <% term.courses.each do |course| %>
+        <li><%= course.name %></li>
+      <% end %>
+    </ul>
+    <%= button_to "Purchase with credit card", student_purchase_term_path(term), method: :post, form: { style: 'display: inline;' } %>
+    <%= button_to "Purchase with license code", student_purchase_term_path(term), method: :post, form: { style: 'display: inline;' } %>
+  </div>
+  <% end %>
+<% else %>
+  <div style="margin-bottom: 25px; border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
+    <p><em>No terms available to purchase.</em></p>
   </div>
 <% end %>
