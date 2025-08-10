@@ -1,27 +1,10 @@
 module Student::TermsToPurchaseHelper
-  def process_term_purchase_with_license_code(term, user, license, payment_result)
-    payment_method = determine_payment_method(payment_result[:payment_method])
-      
-    ActiveRecord::Base.transaction do
-      license.update!(is_used: true)
-      term_purchase = create_term_purchase(term, user, payment_method)
-      courses_added = create_course_purchases(term, user, payment_method)
-        
-      {
-        success: true,
-        term_purchase: term_purchase,
-        courses_added: courses_added
-      }
-    end
-  rescue ActiveRecord::RecordInvalid => e
-      Rails.logger.error("Failed to purchase #{term.name}: #{e.message}")
-      { success: false, error: e.message }
-  end
-
-  def process_term_purchase(term, user, payment_result)
+  def process_term_purchase(term, user, payment_result, license = nil)
     payment_method = determine_payment_method(payment_result[:payment_method])
     
     ActiveRecord::Base.transaction do
+      license.update!(is_used: true) if license
+      
       term_purchase = create_term_purchase(term, user, payment_method)
       courses_added = create_course_purchases(term, user, payment_method)
       

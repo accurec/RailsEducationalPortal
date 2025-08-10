@@ -72,7 +72,7 @@ class Student::TermsToPurchaseController < ApplicationController
     payment_processor = ::PaymentProcessor.new(current_user)
     payment_result = payment_processor.process_term_payment(term)
 
-    purchase_result = process_term_purchase_with_license_code(term, current_user, license, payment_result)
+    purchase_result = process_term_purchase(term, current_user, payment_result, license)
 
     if purchase_result[:already_purchased]
       flash[:alert] = purchase_result[:error]
