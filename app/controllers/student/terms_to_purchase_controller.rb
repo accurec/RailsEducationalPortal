@@ -32,12 +32,37 @@ class Student::TermsToPurchaseController < ApplicationController
                      end
 
     if payment_result[:success]
-      term_purchase = current_user.term_purchases.build(term: term, purchased_at: Time.current, payment_method: payment_method)
+      begin
+        ActiveRecord::Base.transaction do
+          term_purchase = current_user.term_purchases.build(
+            term: term, 
+            purchased_at: Time.current, 
+            payment_method: payment_method
+          )
 
-      if term_purchase.save
-        flash[:notice] = "Successfully purchased #{term.name} for $#{payment_result[:amount]}!"
-        redirect_to student_terms_to_purchase_path
-      else
+          term_purchase.save!
+
+          unpurchased_courses = term.courses.where.not(
+            id: current_user.purchased_courses.select(:id)
+          )
+          unpurchased_courses_count = unpurchased_courses.count
+          
+          unpurchased_courses.each do |course|
+            course_purchase = current_user.course_purchases.build(
+              course: course,
+              purchased_at: Time.current,
+              payment_method: payment_method
+            )
+
+            course_purchase.save!
+          end
+
+          flash[:notice] = "Successfully purchased #{term.name} for $#{payment_result[:amount]}! Added #{unpurchased_courses_count} new courses to your account."
+          redirect_to student_terms_to_purchase_path
+        end
+      rescue ActiveRecord::RecordInvalid => e
+        Rails.logger.error("Failed to purchase #{term.name}: #{e.message}")
+        
         flash[:alert] = "Failed to purchase #{term.name}. Please try again."
         redirect_to student_terms_to_purchase_path
       end
