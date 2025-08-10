@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+course_purchase_one:
+  user: student_user_one
+  course: course_one
+  payment_method: 0
+  purchased_at: 2025-08-10 06:39:30
+
+course_purchase_two:
+  user: student_user_two
+  course: course_two
+  payment_method: 1
+  purchased_at: 2025-08-10 06:39:30

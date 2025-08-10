@@ -4,6 +4,8 @@ class User < ApplicationRecord
   belongs_to :school, optional: true
   has_many :enrollments, dependent: :destroy
   has_many :courses, through: :enrollments
+  has_many :course_purchases, dependent: :destroy
+  has_many :purchased_courses, through: :course_purchases
 
   scope :students, -> { where(role: :student) }
   scope :admins, -> { where(role: :admin) }

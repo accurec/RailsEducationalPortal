@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_09_182050) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_10_063930) do
+  create_table "course_purchases", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "course_id", null: false
+    t.integer "payment_method"
+    t.datetime "purchased_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_course_purchases_on_course_id"
+    t.index ["user_id"], name: "index_course_purchases_on_user_id"
+  end
+
   create_table "courses", force: :cascade do |t|
     t.string "name"
     t.integer "term_id", null: false
@@ -22,7 +33,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_09_182050) do
   create_table "enrollments", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "course_id", null: false
-    t.datetime "purchased_at"
     t.datetime "enrolled_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -67,6 +77,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_09_182050) do
     t.index ["school_id"], name: "index_users_on_school_id"
   end
 
+  add_foreign_key "course_purchases", "courses"
+  add_foreign_key "course_purchases", "users"
   add_foreign_key "courses", "terms"
   add_foreign_key "enrollments", "courses"
   add_foreign_key "enrollments", "users"

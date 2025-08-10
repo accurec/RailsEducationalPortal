@@ -3,10 +3,9 @@
 enrollment_one:
   user: student_user_one
   course: course_one
-  purchased_at: 2025-08-08 16:16:14
+  enrolled_at: 2025-08-08 16:16:14
 
 enrollment_two:
   user: student_user_two
   course: course_two 
-  purchased_at: 2025-08-08 16:16:14
   enrolled_at: 2025-08-08 16:36:14
