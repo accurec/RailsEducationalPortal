@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get "courses_to_purchase", to: "courses_to_purchase#index"
     post "courses_to_purchase/:id/purchase", to: "courses_to_purchase#purchase", as: :purchase_course
     get "terms_to_purchase", to: "terms_to_purchase#index"
+    post "terms_to_purchase/:id/purchase", to: "terms_to_purchase#purchase", as: :purchase_term
   end
 
   namespace :admin do
