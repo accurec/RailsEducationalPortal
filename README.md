@@ -10,6 +10,8 @@ This is a take home project that is an educational portal example where Users (s
 4) A combination of vibe coding and real human coding was used to create this app.
 5) Due to a time constraints I made a deliberate choice to focus on features and code optimization development, and reduce efforts in writing tests and making UI pretty (the Rails way).
 6) The payment processing is mocked in this application and is there only for the purpose of demonstration how such concept could be used.
+7) Signing up new users is not supported for now. Only the users that are pre-seeded can be used.
+8) Adding new schools/terms/courses is not supported for now. Only the pre-seeded data can be used.
 
 ## Installation
 
@@ -26,8 +28,11 @@ There are two separate type of users of the application:
 1) Admin - can view dashboard for the portal and see things like how many schools there are, how many courses, terms, and so on.
 2) Student - can purchase courses and terms using either credit card method or a license code method. A term purchase automatically allows to enroll in any course of that term. A course purcahse only allows to enroll in that one course.
 
+There are two different schools that are pre-seeded.
+
 To login as Admin user use `admin@example.com:password123` combination.
-To login as Student use `student1/2/3/4@example.com:password123` combinations.
+To login as Student of one school use `student1@example.com:password123` combination.
+To login as Student of another school use `student2/3/4@example.com:password123` combinations.
 
 ## TODO list
 
