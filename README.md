@@ -40,3 +40,4 @@ To login as Student of another school use `student2/3/4@example.com:password123`
 2) Optimize queries and views to have less DB hits.
 3) Improve UI and navigations.
 4) Reorganize views to render partials potentially.
+5) Add rails models validations.
