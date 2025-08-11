@@ -1,6 +1,6 @@
 ## About
 
-This is a take home project that is an educational portal example where Users (students and admins) can login to the portal, view analytica about the portal, purchase and enroll in terms/courses. Each school has many students, terms. Each term has many courses.
+This is a take home project that is an educational portal example where Users (students and admins) can login to the portal, view analytics about the portal, purchase and enroll in terms/courses. Each school has many students, terms. Each term has many courses.
 
 ## Notes
 
