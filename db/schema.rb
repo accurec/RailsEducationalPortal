@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_10_070458) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_11_224003) do
   create_table "course_purchases", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "course_id", null: false
-    t.integer "payment_method"
-    t.datetime "purchased_at"
+    t.integer "payment_method", null: false
+    t.datetime "purchased_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_course_purchases_on_course_id"
@@ -23,7 +23,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_070458) do
   end
 
   create_table "courses", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.integer "term_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -33,7 +33,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_070458) do
   create_table "enrollments", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "course_id", null: false
-    t.datetime "enrolled_at"
+    t.datetime "enrolled_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_enrollments_on_course_id"
@@ -41,7 +41,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_070458) do
   end
 
   create_table "licenses", force: :cascade do |t|
-    t.string "code"
+    t.string "code", null: false
     t.boolean "is_used", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -49,7 +49,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_070458) do
   end
 
   create_table "schools", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -57,8 +57,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_070458) do
   create_table "term_purchases", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "term_id", null: false
-    t.integer "payment_method"
-    t.datetime "purchased_at"
+    t.integer "payment_method", null: false
+    t.datetime "purchased_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["term_id"], name: "index_term_purchases_on_term_id"
@@ -66,7 +66,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_070458) do
   end
 
   create_table "terms", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.integer "school_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -81,7 +81,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_070458) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "role"
+    t.integer "role", null: false
     t.integer "school_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
