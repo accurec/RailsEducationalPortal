@@ -22,12 +22,22 @@ end
 
 school_moscow = School.find_by(name: "Moscow University")
 
-student2 = User.find_or_create_by!(email: "student2@example.com") do |user|
-  user.password = "password123"
-  user.password_confirmation = "password123"
-  user.role = :student
-  user.school = school_moscow
+moscow_students = []
+
+[
+  "student2@example.com",
+  "student3@example.com",
+  "student4@example.com"
+].each do |email|
+  student = User.find_or_create_by!(email: email) do |user|
+    user.password = "password123"
+    user.password_confirmation = "password123"
+    user.role = :student
+    user.school = school_moscow
+  end
+
+  moscow_students << student.email
 end
 
-puts "Student users created: #{student1.email}, #{student2.email}"
+puts "Student users created: #{student1.email}, #{moscow_students.join(', ')}"
 puts "Users seeding completed!" 

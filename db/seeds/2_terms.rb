@@ -14,7 +14,7 @@ result = []
   result << term.name
 end
 
-["Spring 2028", "Summer 2028"].each do |term_name|
+["Spring 2028", "Summer 2028", "Fall 2028"].each do |term_name|
   term = Term.find_or_create_by!(name: term_name) do |t|
     t.school = school_moscow
   end 

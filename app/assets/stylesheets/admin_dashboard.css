@@ -1,0 +1,264 @@
+/* Dashboard Title */
+.dashboard-title {
+    text-align: center;
+    color: #2d3748;
+    margin: 30px 0;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+/* Summary Section */
+.summary-section {
+    margin: 30px 0;
+    border: 2px solid #333;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.summary-header {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.summary-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.summary-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: white;
+    text-align: center;
+    min-width: 150px;
+    border-radius: 5px;
+    transition: transform 0.2s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-2px);
+}
+
+.summary-number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 8px;
+}
+
+.summary-label {
+    color: #555;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* School Cards */
+.school-card {
+    margin-bottom: 30px;
+    border: 2px solid #333;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.school-header {
+    margin-bottom: 20px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+}
+
+.school-title {
+    color: #333;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* Section Titles */
+.section-title {
+    color: #555;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Terms Section */
+.terms-section {
+    margin-bottom: 25px;
+}
+
+.terms-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.term-card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    background-color: white;
+    min-width: 200px;
+    border-radius: 5px;
+    transition: box-shadow 0.2s ease;
+}
+
+.term-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.term-name {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 16px;
+}
+
+.term-stats {
+    color: #555;
+}
+
+/* Courses Section */
+.courses-section {
+    margin-bottom: 20px;
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.course-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.course-header {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.course-title {
+    margin: 0 0 5px 0;
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.term-badge {
+    background-color: #007bff;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.course-stats {
+    margin-bottom: 15px;
+    color: #555;
+}
+
+/* Payment Breakdown */
+.payment-breakdown {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #e9ecef;
+}
+
+.payment-method {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 8px;
+}
+
+.payment-method:last-child {
+    margin-bottom: 0;
+}
+
+.method-icon {
+    font-size: 16px;
+    min-width: 20px;
+}
+
+.method-label {
+    flex: 1;
+    color: #555;
+    font-size: 14px;
+}
+
+.method-count {
+    font-weight: 600;
+    color: #333;
+    min-width: 30px;
+    text-align: right;
+}
+
+/* Total Purchases */
+.total-purchases {
+    border-top: 1px solid #dee2e6;
+    padding-top: 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total-label {
+    color: #555;
+}
+
+.total-value {
+    color: #333;
+    font-size: 18px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .summary-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .courses-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .terms-grid {
+        flex-direction: column;
+    }
+
+    .course-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .term-badge {
+        align-self: flex-start;
+    }
+}

@@ -1,1 +1,111 @@
-<h1>Admin Dashboard</h1>
+<h1 class="dashboard-title">Admin Dashboard</h1>
+
+<!-- Summary Section -->
+<div class="summary-section">
+  <h2 class="summary-header">Platform Summary</h2>
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="summary-number">
+        <%= @enrollment_stats[:summary][:total_schools] %>
+      </div>
+      <div class="summary-label">Total Schools</div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-number">
+        <%= @enrollment_stats[:summary][:total_students] %>
+      </div>
+      <div class="summary-label">Total Students</div>
+    </div>
+    
+    <div class="summary-card">
+      <div class="summary-number">
+        <%= @enrollment_stats[:summary][:total_terms] %>
+      </div>
+      <div class="summary-label">Total Terms</div>
+    </div>
+    
+    <div class="summary-card">
+      <div class="summary-number">
+        <%= @enrollment_stats[:summary][:total_courses] %>
+      </div>
+      <div class="summary-label">Total Courses</div>
+    </div>
+    
+    <div class="summary-card">
+      <div class="summary-number">
+        <%= @enrollment_stats[:summary][:total_term_enrollments] %>
+      </div>
+      <div class="summary-label">Total Term Enrollments</div>
+    </div>
+    
+    <div class="summary-card">
+      <div class="summary-number">
+        <%= @enrollment_stats[:summary][:total_course_enrollments] %>
+      </div>
+      <div class="summary-label">Total Course Enrollments</div>
+    </div>
+  </div>
+</div>
+
+<% @enrollment_stats[:schools].each do |school_id, school_data| %>
+  <div class="school-card">
+    <div class="school-header">
+      <h2 class="school-title"><%= school_data[:name] %></h2>
+    </div>
+    
+    <!-- Terms Section -->
+    <div class="terms-section">
+      <h3 class="section-title">Term Enrollments</h3>
+      <div class="terms-grid">
+        <% school_data[:terms].each do |term_id, term_data| %>
+          <div class="term-card">
+            <div class="term-name"><%= term_data[:name] %></div>
+            <div class="term-stats">
+              <strong>Enrolled Students:</strong> <%= term_data[:enrolled_students] %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    
+    <!-- Courses Section -->
+    <div class="courses-section">
+      <h3 class="section-title">Course Details</h3>
+      <div class="courses-grid">
+        <% school_data[:courses].each do |course_id, course_data| %>
+          <div class="course-card">
+            <div class="course-header">
+              <h4 class="course-title"><%= course_data[:name] %></h4>
+              <span class="term-badge"><%= course_data[:term_name] %></span>
+            </div>
+            
+            <div class="course-stats">
+              <strong>Enrolled Students:</strong> <%= course_data[:enrolled_students] %>
+            </div>
+            
+            <div class="payment-breakdown">
+              <div class="payment-method">
+                <span class="method-icon">💳</span>
+                <span class="method-label">Credit Card Purchases:</span>
+                <span class="method-count"><%= course_data[:credit_card_purchases] %></span>
+              </div>
+              <div class="payment-method">
+                <span class="method-icon">🔑</span>
+                <span class="method-label">License Code Purchases:</span>
+                <span class="method-count"><%= course_data[:license_purchases] %></span>
+              </div>
+            </div>
+            
+            <div class="total-purchases">
+              <span class="total-label">Total Purchases:</span>
+              <span class="total-value">
+                <%= course_data[:total_purchases] %>
+              </span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
