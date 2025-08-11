@@ -10,6 +10,7 @@ class Student::TermsToPurchaseController < ApplicationController
                  .joins(:courses)
                  .where(schools: { id: current_user.school_id })
                  .where.not(id: current_user.purchased_terms.select(:id))
+                 .includes(:courses)
                  .distinct   
   end
 
